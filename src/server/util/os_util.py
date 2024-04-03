@@ -1,12 +1,23 @@
 import os
 import platform as _platform
-
+using_distro = False
+try:
+    import distro
+    using_distro = True
+except ImportError:
+    pass
 
 class OsUtil:
-    platform = os.name
-    name = _platform.system()
-    release = _platform.release()
-    distro = _platform.linux_distribution()
+    if using_distro:
+        platform = os.name
+        name = _platform.system()
+        release = _platform.release()
+        distro = distro.like()
+    else:
+        platform = os.name
+        name = _platform.system()
+        release = _platform.release()
+        distro = _platform.linux_distribution()
 
     def __init__(self):
         pass
